@@ -17,7 +17,7 @@ const nextConfig = {
    */
   basePath: env == "prod" ? "/gostarkme" : "",
 
-  assetPrefix: env == "prod" ? 'https://web3wagers.github.io/gostarkme' : "",
+  assetPrefix: env == "prod" ? 'https://web3wagers.github.io/gostarkme-frontend/' : "",
 
   /**
    * Disable server-based image optimization. Next.js does not support
