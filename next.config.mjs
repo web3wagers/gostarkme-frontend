@@ -15,7 +15,7 @@ const nextConfig = {
    *
    * @see https://nextjs.org/docs/app/api-reference/next-config-js/basePath
    */
-  basePath: env == "prod" ? "/gostarkme" : "",
+  basePath: "",
 
   assetPrefix: env == "prod" ? 'https://web3wagers.github.io/gostarkme-frontend/' : "",
 
