@@ -108,7 +108,18 @@ const Fund = () => {
               voted={fund.voted}
             />
           )}
-          {Number(fund.state) === 2 || Number(fund.state) === 3 && !isOwner && (
+          {Number(fund.state) === 2 && !isOwner && (
+            <>
+              <FundDonate
+                currentBalance={fund.currentBalance}
+                goal={fund.goal}
+                addr={fund.addr}
+                name={fund.name}
+                icon={starknetlogo}
+              />
+            </>
+          )}
+          {Number(fund.state) === 3 && !isOwner && (
             <>
               <FundDonate
                 currentBalance={fund.currentBalance}
