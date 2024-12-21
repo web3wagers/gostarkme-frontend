@@ -108,7 +108,7 @@ const Fund = () => {
               voted={fund.voted}
             />
           )}
-          {Number(fund.state) === 2 && (
+          {Number(fund.state) === 2 || Number(fund.state) === 3 &&  !isOwner && (
             <>
               <FundDonate
                 currentBalance={fund.currentBalance}
@@ -128,11 +128,11 @@ const Fund = () => {
               getDetails={getDetails}
             />
           )}
-          {Number(fund.state) === 3 && !isOwner && (
+          {/* {Number(fund.state) === 3 && !isOwner && (
             <p className="mt-10 self-center text-xl text-gray-500">
               The goal has been reached and funds are ready to be withdrawn by the owner.
             </p>
-          )}
+          )} */}
           {Number(fund.state) === 4 && <p>Fund was already withdrawn.</p>}
         </section>
       )}

@@ -3,7 +3,7 @@
 import { calculatePorcentage } from "@/app/utils";
 import ProgressBar from "@/components/ui/ProgressBar";
 import ShareXButton from "@/components/ui/ShareOnX";
-import { provider } from "@/constants";
+import { BRAAVOS_CHAIN_ID, CHAIN_ID, provider } from "@/constants";
 import { addrSTRK } from "@/contracts/addresses";
 import { activeChainId } from "@/state/activeChain";
 import {
@@ -33,7 +33,6 @@ const FundDonate = ({ currentBalance, goal, addr, name, icon }: FundDonateProps)
   const [isDonating, setIsDonating] = useState(false);
   const wallet = useAtomValue(walletStarknetkitLatestAtom);
   const chainId = useAtomValue(activeChainId);
-  const networkEnvironment = process.env.NEXT_PUBLIC_CHAIN_ID;
   const progress = calculatePorcentage(localBalance, goal);
   const [donationMessage, setDonationMessage] = useState('');
 
@@ -145,18 +144,18 @@ const FundDonate = ({ currentBalance, goal, addr, name, icon }: FundDonateProps)
       )}
       <div className="text-center">
         <button
-          disabled={chainId !== networkEnvironment || !wallet || isDonating}
+          disabled={chainId !== CHAIN_ID && chainId !== BRAAVOS_CHAIN_ID || !wallet || isDonating}
           onClick={handleDonateClick}
           className={`self-center bg-darkblue text-white py-2 px-6 md:py-3 md:px-10 rounded-md
           text-xs md:text-sm shadow-xl hover:bg-starkorange active:bg-darkblue ease-in-out
-          duration-500 active:duration-0 shadow-gray-400 ${chainId !== networkEnvironment || isDonating ? "opacity-50 cursor-not-allowed" : ""}`}
+          duration-500 active:duration-0 shadow-gray-400 ${chainId !== CHAIN_ID && chainId !== BRAAVOS_CHAIN_ID || isDonating ? "opacity-50 cursor-not-allowed" : ""}`}
         >
           {isDonating === true ? "Donating..." : "Donate"}
         </button>
-        {wallet && chainId !== networkEnvironment && (
+        {wallet && chainId !== CHAIN_ID && chainId !== BRAAVOS_CHAIN_ID && (
           <p className="text-sm text-gray-500 mt-2">
             Your wallet is currently connected to the wrong network. Please
-            switch to {networkEnvironment} to continue.
+            switch to {CHAIN_ID} to continue.
           </p>
         )}
         {!wallet && (
