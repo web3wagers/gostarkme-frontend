@@ -36,3 +36,6 @@ export const navItems = [
   ];
 
  export const upVotesNeeded = 50;
+
+ export const BRAAVOS_CHAIN_ID = CHAIN_ID == constants.NetworkName.SN_MAIN ?
+  "0x534e5f4d41494e" : "0x534e5f5345504f4c4941";
