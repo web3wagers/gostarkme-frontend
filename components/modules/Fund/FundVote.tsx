@@ -8,7 +8,7 @@ import { latestTxAtom } from "@/state/latestTx";
 import { useAtom, useAtomValue } from "jotai";
 import { useState } from "react";
 import ShareXButton from "@/components/ui/ShareOnX";
-import { provider } from "@/constants";
+import { BRAAVOS_CHAIN_ID, CHAIN_ID, provider } from "@/constants";
 import { CallData } from "starknet";
 import { activeChainId } from "@/state/activeChain";
 
@@ -24,8 +24,6 @@ interface FundVoteProps {
 export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading }: FundVoteProps) => {
   const wallet = useAtomValue(walletStarknetkitLatestAtom);
   const chainId = useAtomValue(activeChainId);
-  const networkEnvironment = process.env.NEXT_PUBLIC_CHAIN_ID;
-
   const [progress, setProgress] = useState(calculatePorcentage(upVotes, upVotesNeeded));
   const [currentUpvotes, setCurrentUpvotes] = useState(upVotes);
   const voteMessage = `🗳️ Voted for ${name} on Go Stark Me! Support now: https://gostarkme.com 🙌💫 @undefined_org_ @Starknet`;
@@ -108,15 +106,15 @@ export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading
           <div className="text-center">
             <button
               onClick={handleVoteClick}
-              disabled={isVoting || chainId !== networkEnvironment}
+              disabled={isVoting || chainId !== CHAIN_ID && chainId != BRAAVOS_CHAIN_ID}
               className={`bg-darkblue text-white py-2 px-4 md:py-3 md:px-6 rounded-md text-xs md:text-sm shadow-md hover:bg-starkorange
-              active:bg-darkblue ease-in-out duration-500 ${chainId !== networkEnvironment ? "opacity-50 cursor-not-allowed" : ""}`}
+              active:bg-darkblue ease-in-out duration-500 ${chainId !== CHAIN_ID && chainId != BRAAVOS_CHAIN_ID ? "opacity-50 cursor-not-allowed" : ""}`}
             >
               Vote
             </button>
-            {chainId !== networkEnvironment && (
+            {chainId !== CHAIN_ID && chainId != BRAAVOS_CHAIN_ID && (
               <p className="text-xs md:text-sm text-gray-500 mt-2">
-                Your wallet is connected to the wrong network. Please switch to {networkEnvironment}.
+                Your wallet is connected to the wrong network. Please switch to {CHAIN_ID}.
               </p>
             )}
           </div>
