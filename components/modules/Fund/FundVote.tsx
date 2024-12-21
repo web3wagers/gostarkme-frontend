@@ -55,8 +55,7 @@ export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading
         {
           contractAddress: addr,
           entrypoint: 'receive_vote',
-          calldata: CallData.compile({
-          }),
+          calldata: CallData.compile({}),
         },
       ]);
 
@@ -67,12 +66,8 @@ export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading
           setLatestTx(tx.transaction_hash);
           setCanVote(false);
           setShowSuccessPopup(true);
-          setCurrentUpvotes(prev => Number(BigInt(prev) + BigInt(1)));
-          setProgress(calculatePorcentage(Number(BigInt(upVotes) + BigInt(1)), Number(upVotesNeeded)))
-          setTimeout(() => {
-          }, 3000);
-        } else {
-          console.log('tx not successfull')
+          setCurrentUpvotes((prev) => Number(BigInt(prev) + BigInt(1)));
+          setProgress(calculatePorcentage(Number(BigInt(upVotes) + BigInt(1)), Number(upVotesNeeded)));
         }
       }
     } catch (error: any) {
@@ -83,11 +78,11 @@ export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col p-4 space-y-4 max-w-lg mx-auto">
       <ProgressBar progress={progress} />
-      <div className="flex justify-center my-2">
-        <p className="text-center mx-2">{currentUpvotes.toString()} / {upVotesNeeded.toString()} </p>
-        <p>&#127775;</p>
+      <div className="flex justify-center items-center space-x-2 text-sm md:text-base">
+        <p>{currentUpvotes.toString()} / {upVotesNeeded.toString()}</p>
+        <p className="text-yellow-500">&#127775;</p>
       </div>
       {isVoting ? (
         <div className="text-center">
@@ -95,7 +90,7 @@ export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading
             label="Voting..."
             onClick={() => { }}
             className="opacity-50 cursor-not-allowed"
-            disabled={true}
+            disabled
           />
         </div>
       ) : wallet ? (
@@ -105,23 +100,23 @@ export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading
               label="Vote"
               onClick={() => { }}
               className="opacity-50 cursor-not-allowed"
-              disabled={true}
+              disabled
             />
-            <p className="text-sm text-gray-500 mt-2">You have already voted</p>
+            <p className="text-xs md:text-sm text-gray-500 mt-2">You have already voted</p>
           </div>
         ) : (
           <div className="text-center">
             <button
               onClick={handleVoteClick}
               disabled={isVoting || chainId !== networkEnvironment}
-              className={`self-center bg-darkblue text-white py-2 px-6 md:py-3 md:px-10 rounded-md
-                text-xs md:text-sm shadow-xl hover:bg-starkorange active:bg-darkblue ease-in-out
-                duration-500 active:duration-0 shadow-gray-400 ${chainId !== networkEnvironment ? "opacity-50 cursor-not-allowed" : ""}`}
-            >Vote</button>
+              className={`bg-darkblue text-white py-2 px-4 md:py-3 md:px-6 rounded-md text-xs md:text-sm shadow-md hover:bg-starkorange
+              active:bg-darkblue ease-in-out duration-500 ${chainId !== networkEnvironment ? "opacity-50 cursor-not-allowed" : ""}`}
+            >
+              Vote
+            </button>
             {chainId !== networkEnvironment && (
-              <p className="text-sm text-gray-500 mt-2">
-                Your wallet is currently connected to the wrong network. Please
-                switch to {networkEnvironment} to continue.
+              <p className="text-xs md:text-sm text-gray-500 mt-2">
+                Your wallet is connected to the wrong network. Please switch to {networkEnvironment}.
               </p>
             )}
           </div>
@@ -132,16 +127,14 @@ export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading
             label="Vote"
             onClick={() => { }}
             className="opacity-50 cursor-not-allowed"
-            disabled={true}
+            disabled
           />
-          <p className="text-sm text-gray-500 mt-2">
-            Connect your wallet to vote
-          </p>
+          <p className="text-xs md:text-sm text-gray-500 mt-2">Connect your wallet to vote</p>
         </div>
       )}
       {showSuccessPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center">
-          <div className="w-[600px] rounded-md flex flex-col items-center justify-center gap-4 text-center bg-white drop-shadow p-7">
+        <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
+          <div className="w-[90%] md:w-[600px] bg-white rounded-md p-5 text-center space-y-4 shadow-lg">
             <button
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
               onClick={(e) => {
@@ -153,9 +146,9 @@ export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <h1 className="text-xl">Success</h1>
-            <p className="text-l font-light m-5">Your vote was submitted, take a look at the transaction <a className="text-blue-600" target="_blank" href={"https://voyager.online/tx/" + latestTx}>here.</a></p>
-            <p className="text-l font-light m-5">Share your contribution via X to tell everyone how cool you are</p>
+            <h1 className="text-lg md:text-xl font-semibold">Success</h1>
+            <p className="text-sm md:text-base">Your vote was submitted. Check the transaction <a href={"https://voyager.online/tx/" + latestTx} target="_blank" className="text-blue-600 underline">here</a>.</p>
+            <p className="text-sm md:text-base">Share your contribution via X to tell everyone how cool you are</p>
             <ShareXButton message={voteMessage} />
           </div>
         </div>

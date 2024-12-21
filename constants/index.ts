@@ -31,8 +31,8 @@ export const FUND_MANAGER_ADDR =
   process.env.NEXT_PUBLIC_FUND_MANAGER_ADDR || "";
 
 export const navItems = [
-    // { label: 'My Profile', href: '/app/myprofile' },
-    // { label: 'My funds', href: '/app/myfunds' }
+    { label: 'My Profile', href: '/app/myprofile' },
+    { label: 'My funds', href: '/app/myfunds' }
   ];
 
  export const upVotesNeeded = 50;
