@@ -13,7 +13,7 @@ const FundDetailsPage = () => {
   return (
     <>
       {clickedFund &&
-        <Bounded className="px-60 text-lg">
+        <Bounded>
           <Fund></Fund>
         </Bounded>
       }
@@ -25,10 +25,6 @@ const FundDetailsPage = () => {
             logoAlt="Go Stark Me logo"
             title="Go Stark Me"
             navItems={navItems}
-            ctaButton={{
-              label: "Connect wallet",
-              href: "/"
-            }}
           />
           <div className="text-center text-gray-500 mt-5">
             Funding not found, please go back to dashboard and search for the funding again.

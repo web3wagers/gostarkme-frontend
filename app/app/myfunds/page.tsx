@@ -14,10 +14,6 @@ const MyFundsPage = () => {
         logoAlt="Go Stark Me logo"
         title="Go Stark Me"
         navItems={navItems}
-        ctaButton={{
-          label: "Connect wallet",
-          href: "/"
-        }}
       />
       <main className="flex flex-grow w-full justify-center bg-white p-8">
         <UserFunds/>

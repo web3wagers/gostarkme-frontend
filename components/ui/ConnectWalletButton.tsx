@@ -2,19 +2,20 @@
 import { ARGENT_WEBWALLET_URL, CHAIN_ID, provider } from "@/constants";
 import { activeChainId } from "@/state/activeChain";
 import { walletStarknetkitLatestAtom } from "@/state/connectedWallet";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import { connect, disconnect } from "starknetkit";
 
 export default function WalletConnector() {
-  const [wallet, setWallet] = useAtom(walletStarknetkitLatestAtom)
+  const [wallet, setWallet] = useAtom(walletStarknetkitLatestAtom);
   const [activeChain, setActiveChain] = useAtom(activeChainId);
 
   const handleNetwork = (chainId?: string, accounts?: string[]) => {
     setActiveChain(wallet?.chainId);
   };
-  wallet?.on('networkChanged', handleNetwork);
 
-  const handleConnect = async (event:any) => {
+  wallet?.on("networkChanged", handleNetwork);
+
+  const handleConnect = async (event: any) => {
     try {
       const { wallet } = await connect({
         provider,
@@ -26,17 +27,17 @@ export default function WalletConnector() {
           chainId: CHAIN_ID,
           icons: [],
         },
-      })
+      });
 
       setWallet(wallet);
       setActiveChain(wallet?.chainId);
     } catch (e) {
-      console.error(e)
-      alert((e as any).message)
+      console.error(e);
+      alert((e as any).message);
     }
   };
 
-  const handleDisconnect = async (event:any) => {
+  const handleDisconnect = async (event: any) => {
     event.preventDefault();
     try {
       await disconnect();
@@ -47,22 +48,22 @@ export default function WalletConnector() {
   };
 
   return (
-    <>
+    <div className="flex justify-center items-center">
       {wallet ? (
         <button
-          className="self-center bg-darkblue text-white py-2 px-6 md:py-3 md:px-10 rounded-md text-xs md:text-sm shadow-xl hover:bg-starkorange active:bg-darkblue ease-in-out duration-500 active:duration-0 shadow-gray-400"
+          className="bg-darkblue text-white py-2 px-6 md:py-3 md:px-10 rounded-md text-xs md:text-sm lg:text-base shadow-lg hover:bg-starkorange active:bg-darkblue ease-in-out duration-300 active:duration-75 shadow-gray-400"
           onClick={handleDisconnect}
         >
           Log Out
         </button>
       ) : (
         <button
-          className="self-center bg-darkblue text-white py-2 px-6 md:py-3 md:px-10 rounded-md text-xs md:text-sm shadow-xl hover:bg-starkorange active:bg-darkblue ease-in-out duration-500 active:duration-0 shadow-gray-400"
+          className="bg-darkblue text-white py-2 px-6 md:py-3 md:px-10 rounded-md text-xs md:text-sm lg:text-base shadow-lg hover:bg-starkorange active:bg-darkblue ease-in-out duration-300 active:duration-75 shadow-gray-400"
           onClick={handleConnect}
         >
-          Connect wallet
+          Connect Wallet
         </button>
       )}
-    </>
+    </div>
   );
 }

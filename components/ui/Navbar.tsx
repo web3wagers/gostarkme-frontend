@@ -1,58 +1,87 @@
+import { useState } from "react";
 import Image from "next/image";
-import Link from 'next/link';
+import Link from "next/link";
 import ConnectWallet from "../ui/ConnectWalletButton";
 
 interface NavItem {
-  label: string;
-  href: string;
+    label: string;
+    href: string;
 }
 
 interface NavbarProps {
-  logoSrc: string;
-  logoAlt: string;
-  title: string;
-  navItems: NavItem[];
-  ctaButton: {
-    label: string;
-    href: string;
-  };
+    logoSrc: string;
+    logoAlt: string;
+    title: string;
+    navItems: NavItem[];
 }
 
 export const Navbar = ({
-  logoSrc,
-  logoAlt,
-  title,
-  navItems,
-  ctaButton
+    logoSrc,
+    logoAlt,
+    title,
+    navItems,
 }: NavbarProps) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     return (
-        <nav className="sticky bg-white top-0 w-full z-20 border-b-[1px] border-darkblue">
-            <div className="max-w-screen-2xl mx-auto w-full p-4 flex flex-col md:flex-row items-center md:justify-between">
-                <div className="flex flex-col md:flex-row items-center md:space-x-8">
-                    <Link href={"/app"}>
-                        <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-2 mb-4 md:mb-0">
-                            <Image
-                                src={logoSrc}
-                                alt={logoAlt}
-                                width={24}
-                                height={24}
-                                className="md:w-[30px] md:h-[30px]"
+        <nav className="sticky bg-white top-0 w-full z-20 border-b-[1px] border-gray-300">
+            <div className="max-w-screen-2xl mx-auto w-full px-4 py-3 flex justify-between items-center">
+                {/* Logo and Title */}
+                <Link href={"/app"} className="flex items-center space-x-2">
+                    <Image src={logoSrc} alt={logoAlt} width={30} height={30} />
+                    <span className="text-lg font-semibold">{title}</span>
+                </Link>
+                {/* Wallet Button (always visible for mobile) */}
+                <div className="bottom-4 right-4 md:hidden">
+                    <ConnectWallet />
+                </div>
+                {/* Navigation and Wallet Button */}
+                <div className="flex items-center space-x-4">
+                    {/* Hamburger Icon */}
+                    <button
+                        className="md:hidden text-gray-700 hover:text-gray-900 focus:outline-none"
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}
                             />
-                            <span className="text-lg md:text-xl font-semibold">{title}</span>
-                        </div>
-                    </Link>
-                    <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 mb-4 md:mb-0">
+                        </svg>
+                    </button>
+
+                    {/* Connect Wallet Button */}
+                    <div className="hidden md:block">
+                        <ConnectWallet />
+                    </div>
+                </div>
+            </div>
+
+            {/* Mobile Menu */}
+            {isMenuOpen && (
+                <div className="md:hidden bg-white border-t border-gray-200">
+                    <div className="flex flex-col space-y-2 py-3 px-4">
                         {navItems.map((item) => (
-                            <Link key={item.href} href={item.href} className="text-gray-700 hover:text-gray-900">
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className="text-gray-700 hover:text-gray-900"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
                                 {item.label}
                             </Link>
                         ))}
                     </div>
                 </div>
-                <div className="flex items-center space-x-4">
-                    <ConnectWallet />
-                </div>
-            </div>
+            )}
         </nav>
     );
 };
