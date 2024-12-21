@@ -7,5 +7,8 @@ export default function hex2ascii(hexx: string) {
 }
 
 export function calculatePorcentage(qty: number, goal: number): number {
+  if( qty >= goal ){
+    return 100;
+  }
   return (Number(qty) / Number(goal)) * 100;
 }
