@@ -96,7 +96,7 @@ const FundDonate = ({ currentBalance, goal, addr, name, icon }: FundDonateProps)
           if (typeof amount === 'number') {
             setLocalBalance(prev => Number(prev) + amount);
           }
-          setDonationMessage(`🙌 Supporting ${name} on Go Stark Me with ${amount} $STRK! Donate now: https://web3wagers.github.io/gostarkme/ 💪 @undefined_org_ @Starknet`);
+          setDonationMessage(`🙌 Supporting ${name} on Go Stark Me with ${amount} $STRK! Donate now: https://gostarkme.com 💪 @undefined_org_ @Starknet`);
           setAmount("");
           setLatestTx(tx.transaction_hash);
           setShowSuccessPopup(true);
@@ -168,7 +168,7 @@ const FundDonate = ({ currentBalance, goal, addr, name, icon }: FundDonateProps)
 
       {showSuccessPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center">
-          <div className="w-[600px] rounded-md flex flex-col items-center justify-center gap-4 text-center bg-white drop-shadow p-7">
+          <div className="w-[90%] sm:w-[600px] rounded-md flex flex-col items-center justify-center gap-4 text-center bg-white drop-shadow p-5 sm:p-7">
             <button
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
               onClick={(e) => {
@@ -176,13 +176,35 @@ const FundDonate = ({ currentBalance, goal, addr, name, icon }: FundDonateProps)
                 setShowSuccessPopup(false);
               }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
-            <h1 className="text-xl">Success</h1>
-            <p className="text-l font-light m-5">Your donation was received, take a look at the transaction <a className="text-blue-600" target="_blank" href={"https://voyager.online/tx/" + latestTx}>here.</a></p>
-            <p className="text-l font-light m-5">Share your contribution via X to tell everyone how cool you are</p>
+            <h1 className="text-lg sm:text-xl">Success</h1>
+            <p className="text-sm sm:text-base font-light m-3 sm:m-5">
+              Your donation was received, take a look at the transaction{" "}
+              <a
+                className="text-blue-600"
+                target="_blank"
+                href={"https://voyager.online/tx/" + latestTx}
+              >
+                here.
+              </a>
+            </p>
+            <p className="text-sm sm:text-base font-light m-3 sm:m-5">
+              Share your contribution via X to tell everyone how cool you are
+            </p>
             <ShareXButton message={donationMessage} />
           </div>
         </div>

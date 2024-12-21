@@ -30,10 +30,6 @@ const UserProfilePage = () => {
         logoAlt="Go Stark Me logo"
         title="Go Stark Me"
         navItems={navItems}
-        ctaButton={{
-          label: "Connect wallet",
-          href: "/"
-        }}
       />
       {wallet !== undefined ? (
         <main className="flex flex-grow w-full items-center justify-center bg-white p-8">

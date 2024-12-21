@@ -22,10 +22,6 @@ const Confirmation = () => {
                 logoAlt="Go Stark Me logo"
                 title="Go Stark Me"
                 navItems={navItems}
-                ctaButton={{
-                    label: "Connect wallet",
-                    href: "/"
-                }}
             />
             {tx === undefined &&
                 <div className="text-center text-gray-500 mt-5">

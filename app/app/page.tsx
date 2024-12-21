@@ -65,10 +65,6 @@ const Dashboard = () => {
         logoAlt="Go Stark Me logo"
         title="Go Stark Me"
         navItems={navItems}
-        ctaButton={{
-          label: "Connect wallet",
-          href: "/"
-        }}
       />
       {loading && <div className="text-center text-gray-500 mt-12">
         <LoadingSpinner />
