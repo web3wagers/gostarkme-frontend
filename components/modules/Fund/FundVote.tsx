@@ -28,7 +28,7 @@ export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading
 
   const [progress, setProgress] = useState(calculatePorcentage(upVotes, upVotesNeeded));
   const [currentUpvotes, setCurrentUpvotes] = useState(upVotes);
-  const voteMessage = `🗳️ Voted for ${name} on Go Stark Me! Support now: https://web3wagers.github.io/gostarkme/ 🙌💫 @undefined_org_ @Starknet`;
+  const voteMessage = `🗳️ Voted for ${name} on Go Stark Me! Support now: https://gostarkme.com 🙌💫 @undefined_org_ @Starknet`;
 
   const [isVoting, setIsVoting] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
@@ -133,8 +133,8 @@ export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading
         </div>
       )}
       {showSuccessPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
-          <div className="w-[90%] md:w-[600px] bg-white rounded-md p-5 text-center space-y-4 shadow-lg">
+        <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center">
+          <div className="w-[90%] sm:w-[600px] rounded-md flex flex-col items-center justify-center gap-4 text-center bg-white drop-shadow p-5 sm:p-7">
             <button
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
               onClick={(e) => {
@@ -142,13 +142,35 @@ export const FundVote = ({ name, upVotes, upVotesNeeded, addr, voted, setLoading
                 setShowSuccessPopup(false);
               }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
-            <h1 className="text-lg md:text-xl font-semibold">Success</h1>
-            <p className="text-sm md:text-base">Your vote was submitted. Check the transaction <a href={"https://voyager.online/tx/" + latestTx} target="_blank" className="text-blue-600 underline">here</a>.</p>
-            <p className="text-sm md:text-base">Share your contribution via X to tell everyone how cool you are</p>
+            <h1 className="text-lg sm:text-xl">Success</h1>
+            <p className="text-sm sm:text-base font-light m-3 sm:m-5">
+              Your vote was sent, take a look at the transaction{" "}
+              <a
+                className="text-blue-600"
+                target="_blank"
+                href={"https://voyager.online/tx/" + latestTx}
+              >
+                here.
+              </a>
+            </p>
+            <p className="text-sm sm:text-base font-light m-3 sm:m-5">
+              Share your contribution via X to tell everyone how cool you are
+            </p>
             <ShareXButton message={voteMessage} />
           </div>
         </div>
