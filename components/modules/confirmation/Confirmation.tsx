@@ -1,7 +1,6 @@
 'use client';
 import React from "react";
 import CreationConfirmation from "./CreationConfirmation";
-import DonationConfirmation from "./DonationConfirmation";
 import { useAtomValue } from "jotai";
 import { latestTxAtom } from "@/state/latestTx";
 import Navbar from "@/components/ui/Navbar";
