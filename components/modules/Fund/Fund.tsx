@@ -3,7 +3,7 @@
 import FundDonate from "./FundDonate";
 import starknetlogo from "@/public/icons/starklogo.png";
 import { FundVote } from "./FundVote";
-
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FUND_MANAGER_ADDR, provider, upVotesNeeded } from "@/constants";
 import Divider from "@/components/ui/Divider";
@@ -18,7 +18,7 @@ import { FundWithdraw } from "./FundWithdraw";
 
 const Fund = () => {
   const wallet = useAtomValue(walletStarknetkitLatestAtom);
-
+  const ROOT = process.env.NEXT_PUBLIC_APP_ROOT;
   const [fund, setFund] = useState<any>({});
   const [loading, setLoading] = useState(true);
   const [isOwner, setIsOwner] = useState(false);
@@ -84,6 +84,15 @@ const Fund = () => {
       {!loading && (
         <section>
           <h1 className="font-bold text-2xl">{fund.name}</h1>
+          <Divider />
+          {/* TODO: remove this once event is finished */}
+          <Image
+            src={ROOT + "images/dojo-event.jpg"}
+            alt="dojo event"
+            height={771}
+            width={450}
+            className="self-center justify-self-center w-2/3 max-w-80 rounded-2xl"
+          />
           <Divider />
           <h2 className="text-xl">Description</h2>
           <p>{fund.desc}</p>
